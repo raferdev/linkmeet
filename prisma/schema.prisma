@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+   id Int @id @default(autoincrement())
+   alias String
+   name String
+   email String @unique
+   password String
+   created_at DateTime @default(now())
+   update_at DateTime?
+   is_deleted Boolean @default(false)
+   is_private Boolean @default(false)
+   cards Cards[]
+   users_organizations_levels Users_organizations_levels[]
+   users_notifications Users_notifications[]
+}
+
+model Cards {
+   id Int @id @default(autoincrement())
+   alias String
+   name String
+   description String
+   url String
+   users_id Int 
+   created_at DateTime @default(now())
+   update_at DateTime?
+   is_deleted Boolean @default(false)
+   is_private Boolean @default(false)
+   users Users @relation(fields: [users_id],references: [id])
+   cards_organizations_levels Cards_organizations_levels[]
+   links Links[]
+}
+
+model Cards_organizations_levels {
+  id Int @id @default(autoincrement())
+  cards_id Int
+  organizations_levels_id Int
+  created_at DateTime @default(now())
+  update_at DateTime?
+  is_deleted Boolean @default(false)
+  cards Cards @relation(fields: [cards_id],references: [id])
+  organizations_levels Organizations_levels @relation(fields: [organizations_levels_id],references: [id])
+}
+
+model Organizations_levels {
+  id Int @id @default(autoincrement())
+  alias String
+  level Int
+  parent_level Int
+  organizations_id Int
+  created_at DateTime @default(now())
+  update_at DateTime?
+  is_deleted Boolean @default(false)
+  cards_organizations_levels Cards_organizations_levels[]
+  organizations Organizations @relation(fields: [organizations_id],references: [id])
+  users_organizations_levels Users_organizations_levels[]
+  @@unique([level,parent_level])
+}
+
+model Links {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  link String
+  created_at DateTime @default(now())
+  update_at DateTime?
+  is_deleted Boolean @default(false)
+  types_id Int
+  cards_id Int
+  cards Cards @relation(fields: [cards_id],references: [id])
+  types Types @relation(fields: [types_id],references: [id])
+}
+
+model Types {
+  id Int @id @default(autoincrement())
+  name String
+  created_at DateTime @default(now())
+  update_at DateTime?
+  links Links[]
+}
+
+model Organizations {
+  id Int @id @default(autoincrement())
+  alias String
+  name String
+  description String
+  created_at DateTime @default(now())
+  update_at DateTime?
+  is_deleted Boolean @default(false)
+  is_private Boolean @default(false)
+  organizations_levels Organizations_levels[]
+}
+
+model Users_organizations_levels {
+  id Int @id @default(autoincrement())
+  users_id Int
+  organizations_levels_id Int
+  roles_id Int
+  created_at DateTime @default(now())
+  update_at DateTime?
+  is_deleted Boolean @default(false)
+  users Users @relation(fields: [users_id],references: [id])
+  roles Roles @relation(fields: [roles_id],references: [id])
+  organizations_levels Organizations_levels @relation(fields: [organizations_levels_id],references: [id])
+  }
+
+model Roles {
+  id Int @id @default(autoincrement())
+  name String
+  created_at DateTime @default(now())
+  update_at DateTime?
+  users_organization_level Users_organizations_levels[]
+}
+
+model Users_notifications {
+  id Int @id @default(autoincrement())
+  text String
+  users_id Int
+  created_at DateTime @default(now())
+  update_at DateTime?
+  is_deleted Boolean @default(false)
+  is_visualized Boolean @default(false)
+  is_decided Boolean @default(false)
+  users Users @relation(fields: [users_id],references: [id])
+}
+
+model Staged_changes {
+  id Int @id @default(autoincrement())
+  type String
+  Info String
+  is_executed Boolean @default(false)
+  created_at DateTime @default(now())
+  update_at DateTime?
+  is_deleted Boolean @default(false)
+}
