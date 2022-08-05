@@ -4,7 +4,7 @@ import { _notUniqueType } from '../../logs/error/typesTextErrorLogs.js';
 import AuthRepository from '../../repositories/AuthRepository.js';
 import { SignUp } from '../../types/authTypes.js';
 
-async function isUnique(user: SignUp) {
+async function IsUnique(user: SignUp) {
   const { alias, email } = user;
   const result = await AuthRepository.Find(email, alias);
   if (result) {
@@ -13,6 +13,11 @@ async function isUnique(user: SignUp) {
   return true;
 }
 
+async function CreateNewUser(user: SignUp) {
+  await AuthRepository.Create(user);
+}
+
 export const AuthServices = {
-  isUnique,
+  IsUnique,
+  CreateNewUser,
 };
