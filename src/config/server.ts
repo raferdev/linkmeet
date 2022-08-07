@@ -1,9 +1,18 @@
 import 'dotenv/config';
 
-const PORT = process.env.PORT;
+let PORT = 4444;
+let SALT = 10;
 
-const server = {
+if (process.env.PORT) {
+  PORT = +process.env.PORT;
+}
+if (process.env.SALT) {
+  SALT = +process.env.SALT;
+}
+
+const __server = {
   PORT,
+  SALT,
 };
 
-export default server;
+export default __server;
