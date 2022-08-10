@@ -10,6 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Session {
+  id Int @id @default(autoincrement())
+  token String 
+  cookie_token String
+  created_at DateTime @default(now())
+  update_at DateTime?
+  is_deleted Boolean @default(false)
+}
+
 model Users {
    id Int @id @default(autoincrement())
    alias String

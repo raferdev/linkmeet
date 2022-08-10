@@ -2,7 +2,10 @@ import { prisma } from '../config/database.js';
 import { SignUp } from '../types/authTypes.js';
 
 async function Find(email: string, alias: string) {
-  const result = await prisma.users.findFirst({ where: { email, alias } });
+  const result = await prisma.users.findFirst({
+    where: { email, alias },
+    select: { name: true, alias: true, email: true },
+  });
   return result;
 }
 
