@@ -11,5 +11,6 @@ export function ErrorLogs(type: string, message: string) {
     message,
     status,
   };
+
   return error;
 }

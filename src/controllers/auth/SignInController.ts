@@ -1,13 +1,16 @@
 import { Request, Response } from 'express';
 
-import { AuthServices } from '../../services/auth/AuthServices.js';
-import { SignIn } from '../../types/authTypes.js';
+import { AuthServices } from '../../services/auth/authServices.js';
+import { SignInUser } from '../../types/authTypes.js';
+import { FindedUser } from '../../types/repositoriesTypes.js';
 
-export default async function SignUpController(req: Request, res: Response) {
-  const userBody: SignIn = req.body;
-  const userDb: SignIn = res.locals.userDB;
+export default async function SignInController(req: Request, res: Response) {
+  const userBody: SignInUser = req.body;
+  const userDb: FindedUser = res.locals.userDB;
 
-  await AuthServices.LoginUser(userBody, userDb);
+  const result = await AuthServices.LoginUser(userBody, userDb);
 
-  return res.sendStatus(201);
+  res.cookie('token', result.tokenCookie);
+
+  return res.send(result.body).status(200);
 }

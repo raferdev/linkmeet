@@ -3,3 +3,4 @@ export const _schemaErrorMessage = 'Request body schema is wrong';
 export const _hashBcryptMessage = 'Failure storing data';
 export const _NotFoundMessage = 'User not found';
 export const _InvalidCredentialsMessage = 'Email or Password are wrong!';
+export const _ServerErrorMessage = 'Internal Server Error';

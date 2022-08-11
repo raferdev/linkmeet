@@ -8,10 +8,14 @@ import router from './routes/index.js';
 
 const app = express();
 
-app.use(cors());
-app.use(json());
-app.use(helmet());
+try {
+  app.use(cors());
+  app.use(json());
+  app.use(helmet());
+  app.use(router);
+  app.use(ErrorHandlerMiddleware);
+} catch (e) {
+  console.log(e);
+}
 
-app.use(router);
-app.use(ErrorHandlerMiddleware);
 export default app;
