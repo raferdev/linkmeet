@@ -5,6 +5,17 @@ export type storedPassword = {
 export type FindedUser = {
   email: string;
   alias: string;
+  id: number;
   name: string;
   password: string;
+};
+
+export type FindedUserToken = Omit<FindedUser, 'password'>;
+
+export type CardsCreateInput = {
+  alias: string;
+  name: string;
+  description: string;
+  url: string;
+  users_id: number;
 };

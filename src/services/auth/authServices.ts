@@ -15,7 +15,7 @@ import {
 } from '../../logs/error/typesTextErrorLogs.js';
 import AuthRepository from '../../repositories/authRepository.js';
 import { SignInBody, SignInUser, SignUpUser } from '../../types/authTypes.js';
-import { FindedUser } from '../../types/repositoriesTypes.js';
+import { FindedUser, FindedUserToken } from '../../types/repositoriesTypes.js';
 
 async function SignInRepoConsult(user: SignInUser) {
   const { identifier } = user;
@@ -58,7 +58,6 @@ async function LoginUser(user: SignInUser, userDB: FindedUser) {
   if (!result) {
     throw ErrorLogs(_InvalidCredentialsType, _InvalidCredentialsMessage);
   }
-
   return TokenSessions(userDB);
 }
 
