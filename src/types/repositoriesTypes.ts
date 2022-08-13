@@ -19,3 +19,17 @@ export type CardsCreateInput = {
   url: string;
   users_id: number;
 };
+
+export type CardsCreateWithLInkInput = {
+  alias: string;
+  name: string;
+  description: string;
+  url: string;
+  users_id: number;
+  links?: {
+    name: string;
+    alias: string;
+    description: string;
+    types_id: string;
+  };
+};

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import CardsServices from '../../../services/cards/cardsServices.js';
+import CardsServices from '../../services/cards/cardsServices.js';
 
 async function PostCardsByUserController(req: Request, res: Response) {
   const newCard = req.body;

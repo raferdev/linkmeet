@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import GetCardsByUserController from '../../controllers/auth/cards/GetCardsByUserController.js';
-import PostCardsByUserController from '../../controllers/auth/cards/PostCardsByUserController.js';
+import GetCardsByUserController from '../../controllers/cards/GetCardsByUserController.js';
+import PostCardsByUserController from '../../controllers/cards/PostCardsByUserController.js';
 import AuthTokenMiddleware from '../../middlewares/AuthTokenMiddleware.js';
 
 const cardsRouter = Router();
