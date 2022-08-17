@@ -6,17 +6,32 @@ async function FindByUser(userId: number) {
 }
 
 async function Create(data: CardsCreateWithLInkInput) {
-  return await prisma.cards.create({ data: data });
+  return await prisma.cards.create({ data });
 }
 
-async function CreateWithLink(data: CardsCreateWithLInkInput) {
-  return await prisma.cards.create({ data: data });
+async function FindCard(data: string) {
+  return await prisma.cards.findFirst({
+    where: { url: data },
+    select: {
+      title: true,
+      img: true,
+      role: true,
+      description: true,
+      links: {
+        select: {
+          name: true,
+          description: true,
+          link: true,
+        },
+      },
+    },
+  });
 }
 
 const CardsRepository = {
   FindByUser,
   Create,
-  CreateWithLink,
+  FindCard,
 };
 
 export default CardsRepository;

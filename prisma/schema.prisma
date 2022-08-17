@@ -37,7 +37,9 @@ model Users {
 model Cards {
    id Int @id @default(autoincrement())
    alias String
-   name String
+   title String
+   img String
+   role String
    description String
    url String
    users_id Int 
@@ -84,19 +86,10 @@ model Links {
   created_at DateTime @default(now())
   update_at DateTime?
   is_deleted Boolean @default(false)
-  types_id Int
   cards_id Int
   cards Cards @relation(fields: [cards_id],references: [id])
-  types Types @relation(fields: [types_id],references: [id])
 }
 
-model Types {
-  id Int @id @default(autoincrement())
-  name String
-  created_at DateTime @default(now())
-  update_at DateTime?
-  links Links[]
-}
 
 model Organizations {
   id Int @id @default(autoincrement())

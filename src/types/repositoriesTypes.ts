@@ -1,3 +1,5 @@
+import { createManyType } from './cardsTypes.js';
+
 export type storedPassword = {
   password: string;
 };
@@ -22,14 +24,15 @@ export type CardsCreateInput = {
 
 export type CardsCreateWithLInkInput = {
   alias: string;
-  name: string;
+  title: string;
   description: string;
   url: string;
+  img: string;
+  role: string;
   users_id: number;
-  links?: {
-    name: string;
-    alias: string;
-    description: string;
-    types_id: string;
-  };
+  links: { createMany: { data: createManyType[] } };
+};
+
+export type TypesCreateInputType = {
+  name: string;
 };

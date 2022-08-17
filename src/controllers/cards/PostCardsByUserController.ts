@@ -5,11 +5,11 @@ import CardsServices from '../../services/cards/cardsServices.js';
 async function PostCardsByUserController(req: Request, res: Response) {
   const newCard = req.body;
 
-  newCard.users_id = res.locals.user.id;
+  const users_id = res.locals.user.id;
 
-  await CardsServices.CreateCard(newCard);
+  const result = await CardsServices.CreateCard(newCard, users_id);
 
-  res.sendStatus(200);
+  res.status(200).send(result);
 }
 
 export default PostCardsByUserController;

@@ -10,3 +10,9 @@ export type NewCardSchemaType = {
   link5: string;
   link6: string;
 };
+
+export type createManyType = {
+  name: string;
+  description: string;
+  link: string;
+};
